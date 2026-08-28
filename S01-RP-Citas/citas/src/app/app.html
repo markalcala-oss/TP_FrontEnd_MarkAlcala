@@ -1,0 +1,67 @@
+<div class="main-container">
+  <!-- Encabezado y Descripción -->
+  <header class="header">
+    <h1>{{ nombreSistema }}</h1>
+    <p class="description">{{ proposito }}</p>
+  </header>
+
+  <!-- Tarjetas con Contadores / Métricas (Requisito 5) -->
+  <section class="metrics-grid">
+    <div class="metric-card">
+      <span class="metric-title">Total de Citas</span>
+      <strong class="metric-value">{{ totalCitas }}</strong>
+    </div>
+    <div class="metric-card success">
+      <span class="metric-title">Citas Confirmadas</span>
+      <strong class="metric-value">{{ citasConfirmadas }}</strong>
+    </div>
+    <div class="metric-card warning">
+      <span class="metric-title">Citas Pendientes</span>
+      <strong class="metric-value">{{ citasPendientes }}</strong>
+    </div>
+  </section>
+
+  <!-- Botones Interactivos (Requisito 4) -->
+  <div class="actions-bar">
+    <button class="btn btn-primary" (click)="agendarNuevaCita()">+ Agendar Nueva Cita</button>
+    <button class="btn btn-secondary" (click)="filtrarPendientes()">Ver Pendientes</button>
+  </div>
+
+  <div class="content-grid">
+    <!-- SECCIÓN 1: Lista de Citas -->
+    <section class="card section-box">
+      <h2>Próximas Citas Programadas</h2>
+      <div class="citas-list">
+        @for (item of citas; track item.id) {
+          <div class="cita-item">
+            <div class="cita-info">
+              <h4>{{ item.paciente }}</h4>
+              <p><strong>Médico:</strong> {{ item.doctor }} ({{ item.especialidad }})</p>
+              <small>📅 {{ item.fecha }} - ⏰ {{ item.hora }}</small>
+            </div>
+            <span class="badge" [class.confirmed]="item.estado === 'Confirmada'">
+              {{ item.estado }}
+            </span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: Información Médica y Horarios -->
+    <section class="card section-box">
+      <h2>Horarios de Atención Médica</h2>
+      <ul class="schedule-list">
+        <li><span>Cardiología:</span> Lunes a Viernes (08:00 AM - 04:00 PM)</li>
+        <li><span>Pediatría:</span> Lunes a Sábado (09:00 AM - 01:00 PM)</li>
+        <li><span>Dermatología:</span> Martes y Jueves (02:00 PM - 06:00 PM)</li>
+        <li><span>Medicina General:</span> 24 Horas / Emergencias</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Pie de página con Nombre del Estudiante (Requisito 6) -->
+  <footer class="footer">
+    <p>Desarrollado por: <strong>{{ estudiante }}</strong> • Ciclo III</p>
+    <small>Sistema de Reservas y Citas Médicas • Angular Frontend</small>
+  </footer>
+</div>

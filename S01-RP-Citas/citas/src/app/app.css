@@ -1,0 +1,38 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background-color: #f8fafc; color: #1e293b; }
+
+.main-container { max-width: 1000px; margin: 30px auto; padding: 0 20px; display: flex; flex-direction: column; gap: 25px; }
+
+.header { text-align: center; }
+.header h1 { color: #0f172a; font-size: 28px; margin-bottom: 8px; }
+.description { color: #64748b; font-size: 15px; max-width: 600px; margin: 0 auto; }
+
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+.metric-card { background: #fff; padding: 18px; border-radius: 10px; border-left: 5px solid #3b82f6; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+.metric-card.success { border-left-color: #10b981; }
+.metric-card.warning { border-left-color: #f59e0b; }
+.metric-title { display: block; font-size: 13px; color: #64748b; margin-bottom: 5px; }
+.metric-value { font-size: 26px; color: #0f172a; }
+
+.actions-bar { display: flex; gap: 12px; }
+.btn { padding: 10px 20px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.btn-primary { background: #2563eb; color: #fff; }
+.btn-secondary { background: #e2e8f0; color: #334155; }
+
+.content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+.card { background: #fff; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; }
+.section-box h2 { font-size: 18px; margin-bottom: 15px; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; }
+
+.cita-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+.cita-info h4 { font-size: 15px; color: #0f172a; }
+.cita-info p { font-size: 13px; color: #475569; margin: 2px 0; }
+.cita-info small { color: #64748b; font-size: 12px; }
+
+.badge { font-size: 11px; padding: 4px 8px; border-radius: 4px; background: #fef3c7; color: #d97706; font-weight: 600; }
+.badge.confirmed { background: #d1fae5; color: #059669; }
+
+.schedule-list { list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: #475569; }
+.schedule-list span { font-weight: 600; color: #0f172a; }
+
+.footer { text-align: center; margin-top: 20px; padding: 20px; background: #0f172a; color: #f8fafc; border-radius: 8px; }
+.footer small { color: #94a3b8; }
