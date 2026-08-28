@@ -1,0 +1,70 @@
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f4f4f9;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+input, select, button {
+  padding: 8px;
+  margin-top: 4px;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.alerta {
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 4px;
+}
+.alerta.vacio { background-color: #ffe6e6; color: #d9534f; }
+.alerta.info { background-color: #e6f7ff; color: #0288d1; }
+
+.lista-contactos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tarjeta {
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 6px solid #ccc;
+}
+
+/* Lógica condicional aplicada a estilos */
+.contacto-trabajo {
+  background-color: #eef2fa;
+  border-left-color: #1a56db;
+}
+
+.contacto-personal {
+  background-color: #f0fdf4;
+  border-left-color: #16a34a;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
