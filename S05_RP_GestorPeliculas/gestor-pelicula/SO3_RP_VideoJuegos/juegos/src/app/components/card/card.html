@@ -1,0 +1,13 @@
+<div class="card h-100 shadow-sm">
+  <img [src]="juego.imagenUrl" class="card-img-top" [alt]="juego.titulo" style="height: 180px; object-fit: cover;">
+  <div class="card-body">
+    <h5 class="card-title">{{ juego.titulo }}</h5>
+    <p class="card-text mb-1"><strong>Género:</strong> {{ juego.genero }}</p>
+    <p class="card-text mb-1"><strong>Plataforma:</strong> {{ juego.plataforma }}</p>
+    <p class="card-text text-primary font-weight-bold"><strong>Precio:</strong> ${{ juego.precio }}</p>
+  </div>
+  <div class="card-footer d-flex justify-content-between bg-transparent">
+    <button class="btn btn-warning btn-sm" (click)="editar()">Editar</button>
+    <button class="btn btn-danger btn-sm" (click)="eliminar()">Eliminar</button>
+  </div>
+</div>

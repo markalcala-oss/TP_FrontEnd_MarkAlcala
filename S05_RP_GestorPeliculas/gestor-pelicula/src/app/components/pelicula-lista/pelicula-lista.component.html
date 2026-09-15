@@ -1,0 +1,46 @@
+<div class="catalogo-container">
+  <div class="header">
+    <h2>🎬 Catálogo de Películas</h2>
+    <p>Gestión de catálogo Angular inyectado mediante servicios</p>
+  </div>
+
+  <div class="grid-peliculas">
+    @for (pelicula of peliculas; track pelicula.titulo) {
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <h3>{{ pelicula.titulo }}</h3>
+            <span class="score">⭐ {{ pelicula.calificacion }}</span>
+          </div>
+
+          <div class="card-body">
+            <div class="info-row">
+              <span class="label">Género</span>
+              <span class="value">{{ pelicula.genero }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Año de estreno</span>
+              <span class="value">{{ pelicula.anio }}</span>
+            </div>
+          </div>
+        </div>
+
+        @if (pelicula.calificacion >= 8) {
+          <div class="badge alta">
+            <span>🔥</span> Obra Maestra / Recomendada
+          </div>
+        } @else if (pelicula.calificacion >= 6) {
+          <div class="badge media">
+            <span>👍</span> Buena Opción
+          </div>
+        } @else {
+          <div class="badge baja">
+            <span>⚠️</span> Calificación Regular
+          </div>
+        }
+      </div>
+    } @empty {
+      <p>No se encontraron películas disponibles.</p>
+    }
+  </div>
+</div>

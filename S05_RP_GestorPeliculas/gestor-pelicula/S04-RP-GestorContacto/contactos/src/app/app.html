@@ -1,0 +1,59 @@
+<div class="container">
+  <!-- 1. Título de App -->
+  <h1>{{ titulo }}</h1>
+
+  <!-- 2. Formulario -->
+  <form (submit)="agregarContacto(); $event.preventDefault()" class="formulario">
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input type="text" [(ngModel)]="nuevoContacto.nombre" name="nombre" required placeholder="Ej. Carlos">
+    </div>
+
+    <div class="form-group">
+      <label>Teléfono:</label>
+      <input type="text" [(ngModel)]="nuevoContacto.telefono" name="telefono" required placeholder="Ej. 999888777">
+    </div>
+
+    <div class="form-group">
+      <label>Correo:</label>
+      <input type="email" [(ngModel)]="nuevoContacto.correo" name="correo" required placeholder="Ej. carlos@mail.com">
+    </div>
+
+    <div class="form-group">
+      <label>Tipo de Contacto:</label>
+      <select [(ngModel)]="nuevoContacto.tipo" name="tipo">
+        <option value="Personal">Personal</option>
+        <option value="Trabajo">Trabajo</option>
+        <option value="Familia">Familia</option>
+        <option value="Estudios">Estudios</option>
+      </select>
+    </div>
+
+    <!-- 3. Botón Agregar (deshabilitado si faltan datos) -->
+    <button 
+      type="submit" 
+      [disabled]="!nuevoContacto.nombre || !nuevoContacto.telefono || !nuevoContacto.correo">
+      Agregar Contacto
+    </button>
+  </form>
+
+  <!-- 6. Mensaje Dinámico (@if) -->
+  @if (contactos.length === 0) {
+    <p class="alerta vacio">No hay contactos registrados en la agenda.</p>
+  } @else {
+    <p class="alerta info">Tienes {{ contactos.length }} contacto(s) guardado(s).</p>
+  }
+
+  <!-- 4. Lista de Elementos (@for) -->
+  <div class="lista-contactos">
+    @for (contacto of contactos; track contacto.telefono) {
+      <!-- 5. Tarjetas / Items con estilos condicionales [ngClass] -->
+      <div class="tarjeta" [ngClass]="{'contacto-trabajo': contacto.tipo === 'Trabajo', 'contacto-personal': contacto.tipo !== 'Trabajo'}">
+        <h3>{{ contacto.nombre }}</h3>
+        <p><strong>Teléfono:</strong> {{ contacto.telefono }}</p>
+        <p><strong>Correo:</strong> {{ contacto.correo }}</p>
+        <span class="badge">{{ contacto.tipo }}</span>
+      </div>
+    }
+  </div>
+</div>
