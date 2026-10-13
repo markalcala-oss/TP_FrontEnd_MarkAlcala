@@ -1,0 +1,261 @@
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Aula Tech, inicio">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span>Aula<span class="brand-light">Tech</span></span>
+    </a>
+    <span class="topbar-label"><span class="live-dot"></span> INSCRIPCIONES ABIERTAS</span>
+  </header>
+
+  <section class="intro" aria-labelledby="page-title">
+    <div class="eyebrow"><span class="eyebrow-line"></span> APRENDE ALGO NUEVO</div>
+    <h1 id="page-title">Tu próximo nivel<br>empieza <span>aquí.</span></h1>
+    <p>Elige tu taller, encuentra tu ritmo y aprende junto a una comunidad que no deja de crecer.</p>
+  </section>
+
+  <section class="summary" aria-label="Resumen de participantes">
+    <article class="summary-card total-card">
+      <div class="summary-icon total-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m16 0v-2a4 4 0 0 0-3-3.87M14 3.13a4 4 0 0 1 0 7.75M10 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></svg>
+      </div>
+      <div><span class="summary-label">Total inscritos</span><strong>{{ totalInscritos }}</strong></div>
+      <span class="summary-caption">participantes</span>
+    </article>
+    <article class="summary-card">
+      <div class="summary-icon morning-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+      </div>
+      <div><span class="summary-label">Turno mañana</span><strong>{{ inscritosManana }}</strong></div>
+      <span class="summary-caption">participantes</span>
+    </article>
+    <article class="summary-card">
+      <div class="summary-icon night-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
+      </div>
+      <div><span class="summary-label">Turno noche</span><strong>{{ inscritosNoche }}</strong></div>
+      <span class="summary-caption">participantes</span>
+    </article>
+  </section>
+
+  <section class="form-card" aria-labelledby="form-title">
+    <div class="section-heading">
+      <div>
+        <span class="section-kicker">UN BUEN LUGAR PARA EMPEZAR</span>
+        <h2 id="form-title">Inscríbete a un taller</h2>
+        <p>Completa tus datos y reserva tu lugar.</p>
+      </div>
+      <span class="required-note"><span>*</span> Campos obligatorios</span>
+    </div>
+
+    <form #formulario="ngForm" (ngSubmit)="registrar(formulario)" novalidate>
+      <div class="form-grid">
+        <div class="field field-wide">
+          <label for="nombre">Nombre completo <span>*</span></label>
+          <input
+            id="nombre"
+            name="nombre"
+            type="text"
+            placeholder="Ej. Camila Torres"
+            [(ngModel)]="participante.nombre"
+            #nombre="ngModel"
+            required
+            minlength="3"
+            autocomplete="name">
+          @if (nombre.invalid && (nombre.touched || formulario.submitted)) {
+            <span class="field-error">
+              @if (nombre.errors?.['required']) { Escribe tu nombre completo. }
+              @if (nombre.errors?.['minlength']) { El nombre debe tener al menos 3 caracteres. }
+            </span>
+          }
+        </div>
+
+        <div class="field field-wide">
+          <label for="correo">Correo institucional <span>*</span></label>
+          <input
+            id="correo"
+            name="correo"
+            type="email"
+            placeholder="tu@instituto.edu"
+            [(ngModel)]="participante.correo"
+            #correo="ngModel"
+            required
+            email
+            autocomplete="email">
+          @if (correo.invalid && (correo.touched || formulario.submitted)) {
+            <span class="field-error">
+              @if (correo.errors?.['required']) { El correo es obligatorio. }
+              @if (correo.errors?.['email']) { Ingresa un correo con formato válido. }
+            </span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="especialidad">Especialidad <span>*</span></label>
+          <select
+            id="especialidad"
+            name="especialidad"
+            [(ngModel)]="participante.especialidad"
+            #especialidad="ngModel"
+            required>
+            <option value="" disabled>Selecciona una especialidad</option>
+            <option value="Desarrollo">Desarrollo</option>
+            <option value="Redes">Redes</option>
+            <option value="Inteligencia Artificial">Inteligencia Artificial</option>
+          </select>
+          @if (especialidad.invalid && (especialidad.touched || formulario.submitted)) {
+            <span class="field-error">Selecciona una especialidad.</span>
+          }
+        </div>
+
+        <fieldset class="field turn-field">
+          <legend>Turno <span>*</span></legend>
+          <div class="radio-options">
+            <label class="radio-card morning-option">
+              <input
+                type="radio"
+                name="turno"
+                value="Mañana"
+                [(ngModel)]="participante.turno"
+                #turno="ngModel"
+                required>
+              <span class="radio-dot"></span>
+              <span>Mañana</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2"/></svg>
+            </label>
+            <label class="radio-card night-option">
+              <input
+                type="radio"
+                name="turno"
+                value="Noche"
+                [(ngModel)]="participante.turno"
+                required>
+              <span class="radio-dot"></span>
+              <span>Noche</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
+            </label>
+          </div>
+          @if (turno.invalid && (turno.touched || formulario.submitted)) {
+            <span class="field-error">Elige un turno.</span>
+          }
+        </fieldset>
+
+        <div class="field">
+          <label for="modalidad">Modalidad <span>*</span></label>
+          <select
+            id="modalidad"
+            name="modalidad"
+            [(ngModel)]="participante.modalidad"
+            #modalidad="ngModel"
+            required>
+            <option value="" disabled>Selecciona una modalidad</option>
+            <option value="Presencial">Presencial</option>
+            <option value="Virtual">Virtual</option>
+          </select>
+          @if (modalidad.invalid && (modalidad.touched || formulario.submitted)) {
+            <span class="field-error">Selecciona una modalidad.</span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="nivel">Nivel de experiencia <span>*</span></label>
+          <select
+            id="nivel"
+            name="nivel"
+            [(ngModel)]="participante.nivel"
+            #nivel="ngModel"
+            required>
+            <option value="" disabled>Selecciona tu nivel</option>
+            <option value="Principiante">Principiante</option>
+            <option value="Intermedio">Intermedio</option>
+            <option value="Avanzado">Avanzado</option>
+          </select>
+          @if (nivel.invalid && (nivel.touched || formulario.submitted)) {
+            <span class="field-error">Selecciona tu nivel de experiencia.</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <span class="form-reassurance"><span aria-hidden="true">✓</span> Tu lugar te espera. ¡Inscríbete!</span>
+        <button class="submit-button" type="submit">
+          <span>Confirmar inscripción</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="registrations-section" aria-labelledby="registrations-title">
+    <div class="list-heading">
+      <div>
+        <span class="section-kicker">TU COMUNIDAD DE APRENDIZAJE</span>
+        <h2 id="registrations-title">Participantes inscritos <span class="count-badge">{{ totalInscritos }}</span></h2>
+      </div>
+      <span class="list-caption">Las inscripciones aparecen aquí al registrarse</span>
+    </div>
+
+    <div class="table-card">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">N.º</th>
+              <th scope="col">PARTICIPANTE</th>
+              <th scope="col">ESPECIALIDAD</th>
+              <th scope="col">TURNO</th>
+              <th scope="col">MODALIDAD</th>
+              <th scope="col">NIVEL</th>
+              <th scope="col"><span class="visually-hidden">Acciones</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (inscripcion of inscripciones; track inscripcion.numero) {
+              <tr>
+                <td><span class="registration-number">{{ inscripcion.numero.toString().padStart(2, '0') }}</span></td>
+                <td class="participant-cell">
+                  <span class="participant-avatar" aria-hidden="true">{{ inscripcion.nombre.charAt(0).toUpperCase() }}</span>
+                  <span class="participant-details">
+                    <strong>{{ inscripcion.nombre }}</strong>
+                    <span>{{ inscripcion.correo }}</span>
+                  </span>
+                </td>
+                <td><span class="specialty-badge" [class.ai-specialty]="inscripcion.especialidad === 'Inteligencia Artificial'">{{ inscripcion.especialidad }}</span></td>
+                <td><span class="shift-badge" [class.night-shift]="inscripcion.turno === 'Noche'">{{ inscripcion.turno }}</span></td>
+                <td class="plain-cell">{{ inscripcion.modalidad }}</td>
+                <td><span class="level-badge">{{ inscripcion.nivel }}</span></td>
+                <td class="action-cell">
+                  <button
+                    class="delete-button"
+                    type="button"
+                    [attr.aria-label]="'Eliminar inscripción de ' + inscripcion.nombre"
+                    (click)="eliminar(inscripcion.numero)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18m-2 0-.87 14H5.87L5 6m4 0V4h6v2m-5 4v7m4-7v7"/></svg>
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td class="empty-cell" colspan="7">
+                  <span class="empty-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m16 0v-2a4 4 0 0 0-3-3.87M10 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Zm11 2a4 4 0 0 0-4-4"/></svg>
+                  </span>
+                  <strong>Aún no hay participantes</strong>
+                  <span>Cuando alguien se inscriba, aparecerá en esta lista.</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <footer class="table-footer">
+        <span>Mostrando <strong>{{ totalInscritos }}</strong> {{ totalInscritos === 1 ? 'participante' : 'participantes' }}</span>
+        <span class="privacy-note"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Datos de inscripción privados</span>
+      </footer>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <span>© 2025 AulaTech · Aprende, crea, comparte.</span>
+    <span>Hecho para mentes curiosas <span class="footer-sparkle" aria-hidden="true">✳</span></span>
+  </footer>
+</main>
