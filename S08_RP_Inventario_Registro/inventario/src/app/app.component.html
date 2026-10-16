@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="header-tag">S10 | M11: FORMULARIOS REACTIVOS EN ANGULAR</div>
+  <h2>Sistema de Registro e Inventario de Productos</h2>
+  <div class="sub-header">Evaluación sumativa práctica para la creación, validación y gestión de datos en tiempo real mediante Reactive Forms.</div>
+
+  <!-- Sección del Formulario -->
+  <div class="section-box">
+    <div class="section-title">Registro de Producto (Reactive Form)</div>
+    
+    <form [formGroup]="miFormulario" (ngSubmit)="guardar()">
+      <div class="form-group">
+        <label for="nombre">Nombre del Producto:</label>
+        <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Teclado Mecánico RGB" />
+        <div *ngIf="miFormulario.get('nombre')?.invalid && miFormulario.get('nombre')?.touched" class="error">
+          ⚠️ Este campo es obligatorio.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sku">SKU / Código (3 letras + 3 números):</label>
+        <input id="sku" type="text" formControlName="sku" placeholder="Ej. ABC123" />
+        <div *ngIf="miFormulario.get('sku')?.invalid && miFormulario.get('sku')?.touched" class="error">
+          ⚠️ Formato inválido (Debe ser 3 letras + 3 números, Ej: ABC123).
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="precio">Precio Unitario ($):</label>
+        <input id="precio" type="number" step="0.1" formControlName="precio" placeholder="45.99" />
+        <div *ngIf="miFormulario.get('precio')?.invalid && miFormulario.get('precio')?.touched" class="error">
+          ⚠️ El precio debe ser mayor a 0 (mínimo 0.1).
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="stock">Stock Inicial:</label>
+        <input id="stock" type="number" formControlName="stock" placeholder="10" />
+        <div *ngIf="miFormulario.get('stock')?.invalid && miFormulario.get('stock')?.touched" class="error">
+          ⚠️ Debe ser un número entero positivo (mínimo 1).
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="miFormulario.invalid">Registrar Producto</button>
+    </form>
+  </div>
+
+  <!-- Sección del Inventario (Tabla) -->
+  <div class="section-box">
+    <div class="section-title">Inventario de Productos</div>
+    
+    <table *ngIf="productos.length > 0; else sinProductos">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>SKU</th>
+          <th>Nombre del Producto</th>
+          <th>Precio ($)</th>
+          <th>Stock</th>
+          <th>Total ($)</th>
+          <th class="col-acciones">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prod of productos; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ prod.sku }}</td>
+          <td>{{ prod.nombre }}</td>
+          <td>${{ prod.precio }}</td>
+          <td>{{ prod.stock }}</td>
+          <td>${{ (prod.precio * prod.stock).toFixed(2) }}</td>
+          <td class="col-acciones">
+            <button type="button" class="btn-eliminar" (click)="eliminar(i)">
+              🗑️ Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #sinProductos>
+      <div class="empty-message">No hay productos registrados en el inventario.</div>
+    </ng-template>
+  </div>
+
+  <div class="footer">Estudiante: Mark Anderson Alcala Peralta (ESTUDIANTE 02)</div>
+</div>
