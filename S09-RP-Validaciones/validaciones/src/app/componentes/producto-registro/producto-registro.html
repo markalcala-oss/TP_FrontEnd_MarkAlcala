@@ -1,0 +1,103 @@
+<div class="container">
+  <!-- ENCABEZADO -->
+  <div class="header-banner">
+    <div>
+      <h1 class="header-title">Alcala Peralta, Mark Anderson</h1>
+      <div class="header-subtitle">Sistema de Registro de Productos</div>
+    </div>
+    <div class="header-icon">📦</div>
+  </div>
+
+  <!-- TARJETA DEL FORMULARIO -->
+  <div class="card">
+    <h2 class="card-title">Registro de Productos</h2>
+
+    <form [formGroup]="productoForm" (ngSubmit)="guardarProducto()">
+      <!-- SKU -->
+      <div class="form-group">
+        <label>Código SKU (Patrón: 'PROD-XXXX')</label>
+        <input
+          type="text"
+          class="form-control"
+          [class.is-invalid]="productoForm.get('sku')?.touched && productoForm.get('sku')?.invalid"
+          formControlName="sku"
+          placeholder="Ej. PROD-1234"
+        />
+        <div *ngIf="productoForm.get('sku')?.touched && productoForm.get('sku')?.invalid">
+          <span class="error-msg" *ngIf="productoForm.get('sku')?.hasError('required')">El SKU es obligatorio.</span>
+          <span class="error-msg" *ngIf="productoForm.get('sku')?.hasError('pattern')">Formato inválido. Debe llevar guion y 4 números (Ej: PROD-1234).</span>
+        </div>
+      </div>
+
+      <!-- PRECIO -->
+      <div class="form-group">
+        <label>Precio (Mayor a cero)</label>
+        <input
+          type="number"
+          step="0.01"
+          class="form-control"
+          [class.is-invalid]="productoForm.get('precio')?.touched && productoForm.get('precio')?.invalid"
+          formControlName="precio"
+          placeholder="0.00"
+        />
+        <div *ngIf="productoForm.get('precio')?.touched && productoForm.get('precio')?.invalid">
+          <span class="error-msg" *ngIf="productoForm.get('precio')?.hasError('required')">El precio es obligatorio.</span>
+          <span class="error-msg" *ngIf="productoForm.get('precio')?.hasError('min')">El precio debe ser mayor a 0.</span>
+        </div>
+      </div>
+
+      <!-- STOCK -->
+      <div class="form-group">
+        <label>Stock (Entero no negativo)</label>
+        <input
+          type="number"
+          class="form-control"
+          [class.is-invalid]="productoForm.get('stock')?.touched && productoForm.get('stock')?.invalid"
+          formControlName="stock"
+          placeholder="0"
+        />
+        <div *ngIf="productoForm.get('stock')?.touched && productoForm.get('stock')?.invalid">
+          <span class="error-msg" *ngIf="productoForm.get('stock')?.hasError('required')">El stock es obligatorio.</span>
+          <span class="error-msg" *ngIf="productoForm.get('stock')?.hasError('min')">El stock no puede ser negativo.</span>
+          <span class="error-msg" *ngIf="productoForm.get('stock')?.hasError('pattern')">El stock debe ser un número entero.</span>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="productoForm.invalid" class="btn-submit">
+        Registrar Producto
+      </button>
+    </form>
+  </div>
+
+  <!-- TARJETA DE TABLA DE PRODUCTOS -->
+  <div class="card">
+    <h2 class="card-title">Productos Registrados</h2>
+
+    <table class="custom-table" *ngIf="productos.length > 0">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of productos; let i = index">
+          <td><span class="badge-sku">{{ item.sku }}</span></td>
+          <td>{{ item.precio | currency }}</td>
+          <td>{{ item.stock }} unidades</td>
+          <td>
+            <button type="button" class="btn-delete" (click)="eliminarProducto(i)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="empty-state" *ngIf="productos.length === 0">
+      No hay productos registrados en la lista aún.
+    </div>
+  </div>
+</div>
