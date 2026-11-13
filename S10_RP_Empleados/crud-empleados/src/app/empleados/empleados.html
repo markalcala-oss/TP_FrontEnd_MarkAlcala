@@ -1,0 +1,97 @@
+<div class="senior-dashboard">
+  <div class="glass-card form-section">
+    <div class="card-header">
+      <h2>Gestión de Colaboradores</h2>
+      <p class="subtitle">Administra el talento de tu organización</p>
+    </div>
+    
+    <form [formGroup]="empleadoForm" (ngSubmit)="guardar()" class="senior-form">
+      <div class="form-grid">
+        <div class="input-group">
+          <label>Nombre Completo</label>
+          <div class="input-wrapper">
+            <input type="text" formControlName="nombre" placeholder="Ej. Juan Pérez">
+          </div>
+          <span class="error-msg" *ngIf="empleadoForm.get('nombre')?.invalid && empleadoForm.get('nombre')?.touched">
+            ⚠️ Se requieren al menos 3 caracteres.
+          </span>
+        </div>
+
+        <div class="input-group">
+          <label>Cargo / Posición</label>
+          <div class="input-wrapper">
+            <input type="text" formControlName="cargo" placeholder="Ej. Arquitecto de Software">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Salario (USD)</label>
+          <div class="input-wrapper">
+            <span class="currency-symbol">$</span>
+            <input type="number" class="with-symbol" formControlName="salario" placeholder="0.00">
+          </div>
+          <span class="error-msg" *ngIf="empleadoForm.get('salario')?.hasError('salarioInvalido')">
+            ⚠️ El salario debe ser mayor a 0.
+          </span>
+        </div>
+
+        <div class="input-group">
+          <label>Fecha de Ingreso</label>
+          <div class="input-wrapper">
+            <input type="date" formControlName="fechaIngreso">
+          </div>
+          <span class="error-msg" *ngIf="empleadoForm.get('fechaIngreso')?.hasError('fechaAnterior')">
+            ⚠️ La fecha no puede ser anterior a la actual.
+          </span>
+        </div>
+      </div> <!-- Este es el div que probablemente se había borrado -->
+
+      <div class="form-footer">
+        <button type="submit" class="btn-senior" [disabled]="empleadoForm.invalid">
+          <span *ngIf="!empleadoEditando">➕ Registrar Colaborador</span>
+          <span *ngIf="empleadoEditando">🔄 Actualizar Registro</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="glass-card table-section">
+    <div class="table-responsive">
+      <table class="senior-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Colaborador</th>
+            <th>Posición</th>
+            <th>Compensación</th>
+            <th>Ingreso</th>
+            <th class="text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of empleados" class="table-row">
+            <td class="id-cell">#{{ emp.id | number:'2.0' }}</td>
+            <td class="name-cell">{{ emp.nombre }}</td>
+            <td><span class="role-badge">{{ emp.cargo }}</span></td>
+            <td class="salary-cell">${{ emp.salario | number:'1.2-2' }}</td>
+            <td class="date-cell">{{ emp.fechaIngreso }}</td>
+            <td class="actions-cell">
+              <!-- Agregamos type="button" para evitar que hagan submit al formulario -->
+              <button type="button" class="action-btn edit-btn" (click)="editar(emp)" title="Editar">✏️</button>
+              <button type="button" class="action-btn delete-btn" (click)="eliminar(emp.id)" title="Eliminar">🗑️</button>
+            </td>
+          </tr>
+          <tr *ngIf="empleados.length === 0">
+            <td colspan="6" class="empty-state">
+              <div class="empty-content">
+                <span class="empty-icon">📂</span>
+                <p>No hay colaboradores en la base de datos.</p>
+                <small>Los registros aparecerán aquí una vez creados.</small>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
