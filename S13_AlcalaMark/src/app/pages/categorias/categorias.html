@@ -1,0 +1,19 @@
+<div class="page">
+  <div class="page-header">
+    <h2>Categorías</h2>
+    <p>Clasificación de productos por tipo</p>
+  </div>
+
+  <div class="cat-grid">
+    @for (c of categorias; track c.id) {
+      <div class="cat-card">
+        <div class="cat-icon">{{ c.emoji }}</div>
+        <div class="cat-info">
+          <span class="cat-name">{{ c.nombre }}</span>
+          <span class="cat-count">{{ c.total }} productos</span>
+        </div>
+        <span class="cat-pill">{{ c.estado }}</span>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="page">
+  <div class="page-header">
+    <h2>Catálogo de Productos</h2>
+    <p>Lista de productos disponibles en la tienda</p>
+  </div>
+
+  <div class="product-grid">
+    @for (p of productos; track p.id) {
+      <div class="product-card">
+        <div class="product-emoji">{{ p.emoji }}</div>
+        <div class="product-body">
+          <span class="product-name">{{ p.nombre }}</span>
+          <span class="product-cat">{{ p.categoria }}</span>
+          <span class="product-price">${{ p.precio }}</span>
+        </div>
+        <span class="product-badge" [class.low]="p.stock < 10">{{ p.stock }} uds</span>
+      </div>
+    }
+  </div>
+</div>

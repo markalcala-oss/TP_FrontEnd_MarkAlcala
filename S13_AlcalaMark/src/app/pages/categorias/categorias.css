@@ -1,0 +1,40 @@
+.page { display: flex; flex-direction: column; gap: 24px; }
+.page-header h2 { font-size: 1.6rem; font-weight: 700; color: #1e293b; }
+.page-header p { color: #64748b; margin-top: 4px; }
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.cat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.cat-icon { font-size: 1.8rem; }
+
+.cat-info { flex: 1; display: flex; flex-direction: column; }
+.cat-name { font-weight: 600; color: #1e293b; }
+.cat-count { font-size: 0.8rem; color: #64748b; }
+
+.cat-pill {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  background: #dcfce7;
+  color: #166534;
+}
+
+.cat-card:has(.cat-pill:contains('Inactiva')) .cat-pill,
+.cat-pill:not(:empty) {
+  /* fallback handled in component */
+}

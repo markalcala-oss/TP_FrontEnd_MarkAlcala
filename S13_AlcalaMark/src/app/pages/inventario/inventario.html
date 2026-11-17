@@ -1,0 +1,37 @@
+<div class="page">
+  <div class="page-header">
+    <h2>Inventario</h2>
+    <p>Control de stock y disponibilidad</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Stock</th>
+          <th>Precio</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of inventario; track item.id) {
+          <tr>
+            <td>{{ item.id }}</td>
+            <td><strong>{{ item.producto }}</strong></td>
+            <td>{{ item.categoria }}</td>
+            <td>{{ item.stock }}</td>
+            <td>${{ item.precio }}</td>
+            <td>
+              <span class="estado" [class.bajo]="item.stock < 10" [class.sin]="item.stock === 0">
+                {{ item.stock === 0 ? 'Sin stock' : item.stock < 10 ? 'Stock bajo' : 'Disponible' }}
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
