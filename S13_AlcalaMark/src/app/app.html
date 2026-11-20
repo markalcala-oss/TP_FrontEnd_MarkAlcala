@@ -1,34 +1,47 @@
-<div class="layout">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="brand">
-      <span class="brand-icon">🛒</span>
-      <span class="brand-name">AlcalaMark</span>
-    </div>
-    <nav class="nav">
-      <a routerLink="/inicio" routerLinkActive="active" class="nav-item">
-        <span class="nav-icon">🏠</span> Inicio
-      </a>
-      <a routerLink="/productos" routerLinkActive="active" class="nav-item">
-        <span class="nav-icon">📦</span> Productos
-      </a>
-      <a routerLink="/categorias" routerLinkActive="active" class="nav-item">
-        <span class="nav-icon">🏷️</span> Categorías
-      </a>
-      <a routerLink="/inventario" routerLinkActive="active" class="nav-item">
-        <span class="nav-icon">📋</span> Inventario
-      </a>
-    </nav>
-  </aside>
+@if (authService.isAuthenticated()) {
+  <div class="app-container">
+    <!-- Barra lateral izquierda (Diseño S13) -->
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-icon">🛒</span>
+        <span class="brand-title">AlcalaMark</span>
+      </div>
 
-  <!-- Main content -->
-  <div class="main">
-    <header class="topbar">
-      <h1 class="page-title">Panel de Gestión</h1>
-      <span class="topbar-badge">Tienda Online</span>
-    </header>
-    <main class="content">
-      <router-outlet />
-    </main>
+      <nav class="nav-menu">
+        <a routerLink="/inicio" routerLinkActive="active" class="nav-item">
+          <span>🏠</span> Inicio
+        </a>
+        <a routerLink="/productos" routerLinkActive="active" class="nav-item">
+          <span>📦</span> Productos
+        </a>
+        <a routerLink="/categorias" routerLinkActive="active" class="nav-item">
+          <span>🏷️</span> Categorías
+        </a>
+        <a routerLink="/inventario" routerLinkActive="active" class="nav-item">
+          <span>📋</span> Inventario
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Contenedor derecho: Cabecera + Vistas del Dashboard -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <h1 class="topbar-title">Panel de Gestión</h1>
+
+        <div class="topbar-actions">
+          <span class="user-email">{{ authService.getUserEmail() }}</span>
+          <button type="button" (click)="cerrarSesion()" class="btn-logout">
+            Cerrar sesión
+          </button>
+        </div>
+      </header>
+
+      <main class="content">
+        <router-outlet />
+      </main>
+    </div>
   </div>
-</div>
+} @else {
+  <!-- Pantalla completa limpia para el Login -->
+  <router-outlet />
+}
